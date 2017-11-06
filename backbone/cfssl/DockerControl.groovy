@@ -24,7 +24,7 @@ public class DockerControl {
 
   private static String start(String dockerContainerName, String dockerImageVersion) {
     clean(dockerContainerName)
-    String shellCommand = "docker run -d -p 8888:8888 --name ${dockerContainerName} --restart unless-stopped ${dockerContainerName}:${dockerImageVersion}"
+    String shellCommand = "docker run -d -p 8888:8888 -v ${dockerContainerName}:/ca --name ${dockerContainerName} --restart unless-stopped ${dockerContainerName}:${dockerImageVersion}"
     println shellCommand
     def process = shellCommand.execute()
     return process.text
