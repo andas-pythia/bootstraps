@@ -23,8 +23,9 @@ public class DockerControl {
   }
 
   private static String start(String dockerContainerName, String dockerImageVersion) {
+    // this method requires that ports be defined or removed; will not work
     clean(dockerContainerName)
-    String shellCommand = "docker run -d -p 8888:8888 --name ${dockerContainerName} --restart unless-stopped ${dockerContainerName}:${dockerImageVersion}"
+    String shellCommand = "docker run -d -p port:port -p port:port --name ${dockerContainerName} --restart unless-stopped ${dockerContainerName}:${dockerImageVersion}"
     println shellCommand
     def process = shellCommand.execute()
     return process.text
