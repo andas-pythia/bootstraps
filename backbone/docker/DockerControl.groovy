@@ -3,7 +3,7 @@ import groovy.util.CliBuilder
 
 public class DockerControl {
 
-  static def appName = "cfssl"
+  static def appName = "place_holder"
   static def appVersion = "latest"
 
   private static String getName() {
