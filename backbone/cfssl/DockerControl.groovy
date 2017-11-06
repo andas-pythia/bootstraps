@@ -3,14 +3,15 @@ import groovy.util.CliBuilder
 
 public class DockerControl {
 
+  static def appName = "cfssl"
+  static def appVersion = "latest"
+
   private static String getName() {
-    String name = "cfssl"
-    return name
+    return this.appName
   }
 
   private static String getVersion() {
-    String version = "latest"
-    return version
+    return this.appVersion
   }
 
   private static String getPid(String dockerContainerName) {
