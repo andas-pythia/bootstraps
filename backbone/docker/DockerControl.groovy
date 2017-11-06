@@ -1,14 +1,16 @@
-//   echo "err: invalid argument. accepts:
-// stop, restart, build, build-run, rebuild, start, clean, status"
-
 import groovy.util.CliBuilder
 
 
 public class DockerControl {
 
-  private static def getName() {
+  private static String getName() {
     String name = "PlaceHolder"
     return name
+  }
+
+  private static String getVersion() {
+    String version = "latest"
+    return version
   }
 
   private static String getPid(String dockerContainerName) {
@@ -19,9 +21,9 @@ public class DockerControl {
     return dockerPid
   }
 
-  private static String run(String dockerContainerName) {
+  private static String start(String dockerContainerName, String dockerImageVersion) {
     clean(dockerContainerName)
-    String shellCommand = "docker run -d -p 8888:8888 --name ${dockerContainerName} --restart unless-stopped ${dockerContainerName}"
+    String shellCommand = "docker run -d -p 8888:8888 --name ${dockerContainerName} --restart unless-stopped ${dockerContainerName}:${dockerImageVersion}"
     println shellCommand
     def process = shellCommand.execute()
     return process.text
@@ -51,14 +53,14 @@ public class DockerControl {
     return process.text
   }
 
-  private static void buildAndRun(String dockerContainerName) {
+  private static void buildAndRun(String dockerContainerName, String dockerImageVersion) {
     build(dockerContainerName)
-    run(dockerContainerName)
+    start(dockerContainerName)
   }
 
   private static void restart(String dockerPid, String dockerContainerName) {
     stop(dockerPid)
-    run(dockerContainerName)
+    start(dockerContainerName)
   }
 
   private static String status(String dockerContainerName) {
@@ -69,27 +71,29 @@ public class DockerControl {
   }
 
   public static void main(String[] args) {
-    def cli = new CliBuilder(usage: "groovy ./DockerControl.groovy [build, run, buildrun, stop, restart, status, clean]", posix: false)
+    def cli = new CliBuilder(usage: "groovy ./DockerControl.groovy [build, start, buildrun, stop, restart, status, clean]", posix: false)
     def options = cli.parse(args)
     try {
       assert options.arguments()
     } catch (AssertionError ex) {
+      println "Error: A verb is required."
       cli.usage()
-      return // bail
+      return // bail in a cross-platform way
     }
 
     String dockerContainerName = getName()
+    String dockerImageVersion = getVersion()
     String verb = options.arguments()[0]
 
     switch(verb) {
       case 'build':
         println build(dockerContainerName)
         break
-      case 'run':
-        println run(dockerContainerName)
+      case 'start':
+        println start(dockerContainerName, dockerImageVersion)
         break
       case 'buildrun':
-        println buildAndRun(dockerContainerName)
+        println buildAndRun(dockerContainerName, dockerImageVersion)
         break
       case 'stop':
         String dockerPid = getPid(dockerContainerName)
