@@ -44,7 +44,7 @@ public class DockerControl {
     String shellCommand = "docker build --rm -t ${dockerContainerName} ."
     println shellCommand
     def process = shellCommand.execute()
-    process.waitForOrKill(1000)
+    process.waitForOrKill(120000)
     return process.text
   }
 
