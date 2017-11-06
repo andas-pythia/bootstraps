@@ -1,10 +1,13 @@
 FROM cfssl/cfssl:latest
 
-RUN cfssl print-defaults config > ca-config.json && \
-cfssl print-defaults csr > ca-csr.json && \
-cfssl genkey -initca ca-csr.json | cfssljson -bare ca
+MAINTAINER nic seltzer <nic@nicseltzer.com>
 
 EXPOSE 8888
+
+RUN mkdir /ca/
+WORKDIR /ca/
+COPY ./cfssl_ctl.sh /ca/
+RUN ./cfssl_ctl.sh
 
 ENTRYPOINT ["cfssl"]
 
