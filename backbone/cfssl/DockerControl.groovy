@@ -40,10 +40,10 @@ public class DockerControl {
   }
 
   private static String build(String dockerContainerName) {
-    String shellCommand = "docker build --rm -t ${dockerContainerName} ."
+    String shellCommand = "docker build -t ${dockerContainerName} ."
     println shellCommand
     def process = shellCommand.execute()
-    process.waitForOrKill(1000)
+    process.waitForOrKill(120000)
     return process.text
   }
 
@@ -52,11 +52,6 @@ public class DockerControl {
     println shellCommand
     def process = shellCommand.execute()
     return process.text
-  }
-
-  private static void buildAndRun(String dockerContainerName, String dockerImageVersion) {
-    build(dockerContainerName)
-    start(dockerContainerName)
   }
 
   private static void restart(String dockerPid, String dockerContainerName) {
@@ -72,7 +67,7 @@ public class DockerControl {
   }
 
   public static void main(String[] args) {
-    def cli = new CliBuilder(usage: "groovy ./DockerControl.groovy [build, start, buildrun, stop, restart, status, clean]", posix: false)
+    def cli = new CliBuilder(usage: "groovy ./DockerControl.groovy [build, start, stop, restart, status, clean]", posix: false)
     def options = cli.parse(args)
     try {
       assert options.arguments()
@@ -92,9 +87,6 @@ public class DockerControl {
         break
       case 'start':
         println start(dockerContainerName, dockerImageVersion)
-        break
-      case 'buildrun':
-        println buildAndRun(dockerContainerName, dockerImageVersion)
         break
       case 'stop':
         String dockerPid = getPid(dockerContainerName)
