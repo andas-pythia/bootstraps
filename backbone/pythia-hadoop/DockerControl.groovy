@@ -3,7 +3,7 @@ import groovy.util.CliBuilder
 
 public class DockerControl {
 
-  static def appName = "pythia-jenkins"
+  static def appName = "pythia-hadoop"
   static def appVersion = "latest"
 
   private static String getName() {
@@ -25,9 +25,10 @@ public class DockerControl {
   private static String start(String dockerContainerName, String dockerImageVersion) {
     // this method requires that ports be defined or removed; will not work
     clean(dockerContainerName)
-    String shellCommand = "docker run -d -p 8080:8080 -p 50000:50000 --name ${dockerContainerName} --restart unless-stopped ${dockerContainerName}:${dockerImageVersion}"
+    String shellCommand = "docker run -d -p 50010:50010 -p 50020:50020 -p 50070:50070 -p 50075:50075-p 50090:50090-p 8020:8020-p 9000:9000-p 10020:10020-p 19888:19888-p 8030:8030-p 8031:8031-p 8032:8032-p 8033:8033-p 8040:8040-p 8042:8042-p 8088:8088-p 49707:49707-p 2122:2122 --name ${dockerContainerName} --restart unless-stopped ${dockerContainerName}:${dockerImageVersion}"
     println shellCommand
     def process = shellCommand.execute()
+    process.waitForProcessOutput()
     return process.text
   }
 
@@ -57,7 +58,7 @@ public class DockerControl {
 
   private static void buildAndRun(String dockerContainerName, String dockerImageVersion) {
     build(dockerContainerName)
-    start(dockerContainerName)
+    start(dockerContainerName, dockerImageVersion)
   }
 
   private static void restart(String dockerPid, String dockerContainerName) {

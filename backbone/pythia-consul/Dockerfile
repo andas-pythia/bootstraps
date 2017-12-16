@@ -1,10 +1,10 @@
-FROM alpine:latest
+FROM consul:latest
 
 MAINTAINER nic selzer <nic@nicseltzer.com>
 
 # install golang and golang dependencies
 RUN apk update && \
-    apk add curl git mercurial bzr 'go=1.9.2-r1' musl-dev && \
+    apk add curl git mercurial bzr 'go=1.8.4-r0' musl-dev && \
     rm -rf /var/cache/apk/*
 
 ENV GOROOT /usr/lib/go
@@ -14,6 +14,11 @@ ENV PATH $PATH:$GOROOT/bin:$GOPATH/bin
 
 RUN go get -u github.com/cloudflare/cfssl/cmd/cfssl
 
-RUN cfssl
+COPY config.json /consul/config/base-config.json
+VOLUME ["/consul/data"]
 
-# Application logic goes here.
+EXPOSE 8300
+EXPOSE 8301 8301/udp 8302 8302/udp
+EXPOSE 8500 8600 8600/udp
+
+CMD ["agent", "-server"]

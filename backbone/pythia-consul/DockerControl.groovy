@@ -3,7 +3,7 @@ import groovy.util.CliBuilder
 
 public class DockerControl {
 
-  static def appName = "pythia-placeholder"
+  static def appName = "pythia-consul"
   static def appVersion = "latest"
 
   private static String getName() {
@@ -25,10 +25,10 @@ public class DockerControl {
   private static String start(String dockerContainerName, String dockerImageVersion) {
     // this method requires that ports be defined or removed; will not work
     clean(dockerContainerName)
-    String shellCommand = "docker run -d -p port:port -p port:port --name ${dockerContainerName} --restart unless-stopped ${dockerContainerName}:${dockerImageVersion}"
+    String shellCommand = "docker run -d -p 8300:8300 -p 8500:8500 -p 8301:8301 -p 8302:8302 -v ${dockerContainerName}:/consul/data --name ${dockerContainerName} --restart unless-stopped ${dockerContainerName}:${dockerImageVersion}"
     println shellCommand
     def process = shellCommand.execute()
-    process.waitForProcessOutput()
+    process.waitForOrKill(10000)
     return process.text
   }
 
@@ -37,7 +37,7 @@ public class DockerControl {
     String shellCommand = "docker stop ${dockerPid}"
     println shellCommand
     def process = shellCommand.execute()
-    process.waitForProcessOutput()
+    process.waitForOrKill(1000)
     return process.text
   }
 
@@ -45,7 +45,7 @@ public class DockerControl {
     String shellCommand = "docker build --rm -t ${dockerContainerName} ."
     println shellCommand
     def process = shellCommand.execute()
-    process.waitForProcessOutput()
+    process.waitForOrKill(120000)
     return process.text
   }
 
@@ -53,13 +53,12 @@ public class DockerControl {
     String shellCommand = "docker rm ${dockerContainerName}"
     println shellCommand
     def process = shellCommand.execute()
-    process.waitForProcessOutput()
     return process.text
   }
 
   private static void buildAndRun(String dockerContainerName, String dockerImageVersion) {
     build(dockerContainerName)
-    start(dockerContainerName)
+    start(dockerContainerName, dockerImageVersion)
   }
 
   private static void restart(String dockerPid, String dockerContainerName) {
@@ -82,7 +81,7 @@ public class DockerControl {
     } catch (AssertionError ex) {
       println "Error: A verb is required."
       cli.usage()
-      return
+      return // bail in a cross-platform way
     }
 
     String dockerContainerName = getName()
@@ -91,27 +90,27 @@ public class DockerControl {
 
     switch(verb) {
       case 'build':
-        build(dockerContainerName)
+        println build(dockerContainerName)
         break
       case 'start':
-        start(dockerContainerName, dockerImageVersion)
+        println start(dockerContainerName, dockerImageVersion)
         break
       case 'buildrun':
-        buildAndRun(dockerContainerName, dockerImageVersion)
+        println buildAndRun(dockerContainerName, dockerImageVersion)
         break
       case 'stop':
         String dockerPid = getPid(dockerContainerName)
-        stop(dockerPid)
+        println stop(dockerPid)
         break
       case 'restart':
         String dockerPid = getPid(dockerContainerName)
-        restart(dockerPid, dockerContainerName)
+        println restart(dockerPid, dockerContainerName)
         break
       case 'status':
-        status(dockerContainerName)
+        println status(dockerContainerName)
         break
       case 'clean':
-        clean(dockerContainerName)
+        println clean(dockerContainerName)
         break
       default:
         cli.usage()

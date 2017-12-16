@@ -14,6 +14,4 @@ ENV PATH $PATH:$GOROOT/bin:$GOPATH/bin
 
 RUN go get -u github.com/cloudflare/cfssl/cmd/cfssl
 
-RUN cfssl
-
-# Application logic goes here.
+# Exposes nothing; simply a base upon which other images can and should be built

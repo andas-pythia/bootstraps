@@ -4,6 +4,8 @@ MAINTAINER nic seltzer <nic@nicseltzer.com>
 
 EXPOSE 8888
 
+VOLUME ["/ca"]
+
 RUN mkdir /ca/
 WORKDIR /ca/
 COPY ./cfssl_ctl.sh /ca/

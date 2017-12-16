@@ -28,7 +28,6 @@ public class DockerControl {
     String shellCommand = "docker run -d -p port:port -p port:port --name ${dockerContainerName} --restart unless-stopped ${dockerContainerName}:${dockerImageVersion}"
     println shellCommand
     def process = shellCommand.execute()
-    process.waitForProcessOutput()
     return process.text
   }
 
@@ -37,7 +36,7 @@ public class DockerControl {
     String shellCommand = "docker stop ${dockerPid}"
     println shellCommand
     def process = shellCommand.execute()
-    process.waitForProcessOutput()
+    process.waitForOrKill(1000)
     return process.text
   }
 
@@ -45,7 +44,7 @@ public class DockerControl {
     String shellCommand = "docker build --rm -t ${dockerContainerName} ."
     println shellCommand
     def process = shellCommand.execute()
-    process.waitForProcessOutput()
+    process.waitForOrKill(120000)
     return process.text
   }
 
@@ -53,7 +52,6 @@ public class DockerControl {
     String shellCommand = "docker rm ${dockerContainerName}"
     println shellCommand
     def process = shellCommand.execute()
-    process.waitForProcessOutput()
     return process.text
   }
 
@@ -82,7 +80,7 @@ public class DockerControl {
     } catch (AssertionError ex) {
       println "Error: A verb is required."
       cli.usage()
-      return
+      return // bail in a cross-platform way
     }
 
     String dockerContainerName = getName()
@@ -91,27 +89,27 @@ public class DockerControl {
 
     switch(verb) {
       case 'build':
-        build(dockerContainerName)
+        println build(dockerContainerName)
         break
       case 'start':
-        start(dockerContainerName, dockerImageVersion)
+        println start(dockerContainerName, dockerImageVersion)
         break
       case 'buildrun':
-        buildAndRun(dockerContainerName, dockerImageVersion)
+        println buildAndRun(dockerContainerName, dockerImageVersion)
         break
       case 'stop':
         String dockerPid = getPid(dockerContainerName)
-        stop(dockerPid)
+        println stop(dockerPid)
         break
       case 'restart':
         String dockerPid = getPid(dockerContainerName)
-        restart(dockerPid, dockerContainerName)
+        println restart(dockerPid, dockerContainerName)
         break
       case 'status':
-        status(dockerContainerName)
+        println status(dockerContainerName)
         break
       case 'clean':
-        clean(dockerContainerName)
+        println clean(dockerContainerName)
         break
       default:
         cli.usage()
