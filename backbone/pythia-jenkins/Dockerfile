@@ -7,7 +7,7 @@ COPY plugins.txt /usr/share/jenkins/ref/plugins.txt
 RUN /usr/local/bin/install-plugins.sh < /usr/share/jenkins/ref/plugins.txt
 
 # User Configuration
-COPY admin_password.txt /run/secrets/jenkins-pass
+COPY adminPassword.txt /run/secrets/jenkins-pass
 COPY /src/main/groovy/SetAdminUserDetail.groovy /usr/share/jenkins/ref/init.groovy.d/0_security.groovy
 
 # Git Global Configuration

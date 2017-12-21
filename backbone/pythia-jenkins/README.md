@@ -2,9 +2,9 @@
 
 ## Notes
 
-A localfile called `admin_password.txt` should be created for the admin account password in Jenkins.
+A localfile called `adminPassword.txt` should be created for the admin account password in Jenkins.
 
-`admin_password.txt`:
+`adminPassword.txt`:
 
 ```text
 passwordGoesHere
