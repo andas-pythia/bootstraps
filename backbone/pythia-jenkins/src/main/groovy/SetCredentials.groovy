@@ -21,9 +21,7 @@ import org.apache.commons.fileupload.*
 import org.apache.commons.fileupload.disk.*
 import java.nio.file.*
 
-@Grapes([
-    @Grab('org.yaml:snakeyaml:1.17')
-])
+@Grab('org.yaml:snakeyaml:1.17')
 
 import org.yaml.snakeyaml.Yaml
 
