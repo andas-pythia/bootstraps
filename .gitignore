@@ -3,3 +3,6 @@
 
 # jenkins admin password
 adminPassword.txt
+
+# IDEA-related filestructures
+.idea/
