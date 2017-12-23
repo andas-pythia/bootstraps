@@ -1,5 +1,5 @@
-# jenkins ssh private key
-deployKey
+#  private keys
+*.pem
 
 # jenkins admin password
 adminPassword.txt

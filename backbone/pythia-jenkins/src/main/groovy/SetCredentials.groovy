@@ -22,8 +22,9 @@ import org.apache.commons.fileupload.disk.*
 import java.nio.file.*
 
 @Grapes([
-    @Grab(group='org.yaml', module='snakeyaml', version='1.17')
+    @Grab('org.yaml:snakeyaml:1.17')
 ])
+
 import org.yaml.snakeyaml.Yaml
 
 Logger logger = Logger.getLogger("")
