@@ -1,0 +1,26 @@
+---
+MAIN:
+    WORKSPACE_ROOT_DIR: '${JENKINS_HOME}/workspace/${ITEM_FULLNAME}'
+    BUILD_RECORD_ROOT_DIR: '${ITEM_ROOTDIR}/builds'
+    SYSTEM_MESSAGE: 'Pythia Build System'
+    NUMBER_OF_EXECUTORS: 3
+    LABELS:
+        - "master-node"
+    USAGE: 'EXCLUSIVE'
+    QUIET_PERIOD: 5
+    SCM_RETRY_COUNT: 15
+    DISABLE_REMEMBER_ME: true
+GLOBAL_PROPERTIES:
+    ENVIRONMENT_VARIABLES:
+    TOOL_LOCATIONS:
+LOCATION:
+    URL: 'http://build.pythia.andas.internal:8080'
+    ADMIN_EMAIL: 'nic@nicseltzer.com'
+SHELL:
+    EXECUTABLE: '/bin/bash'
+FORMATTER:
+    FORMATTER_TYPE: 'rawhtml'
+    # Note: this option is only available for 'rawhtml' formatters
+    DISABLE_SYNTAX_HIGHLIGHTING: true
+CLI:
+    CLI_ENABLED: false

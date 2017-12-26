@@ -10,6 +10,8 @@
 *
 **/
 
+@Grab('org.yaml:snakeyaml:1.17')
+
 import java.util.logging.Logger
 import jenkins.*
 import jenkins.model.*
@@ -20,9 +22,7 @@ import hudson.slaves.EnvironmentVariablesNodeProperty.Entry
 import hudson.model.Node.Mode
 import hudson.markup.RawHtmlMarkupFormatter
 import hudson.markup.EscapedMarkupFormatter
-@Grapes([
-    @Grab(group='org.yaml', module='snakeyaml', version='1.17')
-])
+import hudson.security.csrf.DefaultCrumbIssuer
 import org.yaml.snakeyaml.Yaml
 
 Logger logger = Logger.getLogger("")
@@ -125,6 +125,9 @@ if (formatterConfig.FORMATTER_TYPE.toLowerCase() == 'rawhtml') {
     jenkins.doSafeExit(null)
     System.exit(1)
 }
+
+// Configure CSRF
+jenkins.setCrumbIssuer(new DefaultCrumbIssuer(true))
 
 jenkins.save()
 logger.info("Finished configuring the main Jenkins options.")
