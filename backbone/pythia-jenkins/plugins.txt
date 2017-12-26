@@ -69,6 +69,7 @@ git:3.6.4
 github:1.28.1
 github-branch-source:2.2.6
 pipeline-github-lib:1.0
+github-oauth:0.28.1
 mapdb-api:1.0.9.0
 subversion:2.9
 ssh-slaves:1.22
