@@ -3,26 +3,24 @@
 * Automate adding credentials into Jenkins
 *
 **/
+
+@Grab('org.yaml:snakeyaml:1.17')
+
 import java.util.logging.Logger
 import jenkins.*
 import jenkins.model.*
 import hudson.*
 import hudson.model.*
 import hudson.util.Secret
-
 import com.cloudbees.plugins.credentials.*
 import com.cloudbees.plugins.credentials.common.*
 import com.cloudbees.plugins.credentials.domains.*
 import com.cloudbees.plugins.credentials.impl.*
 import com.cloudbees.jenkins.plugins.sshcredentials.impl.*
 import org.jenkinsci.plugins.plaincredentials.impl.*
-
 import org.apache.commons.fileupload.*
 import org.apache.commons.fileupload.disk.*
 import java.nio.file.*
-
-@Grab('org.yaml:snakeyaml:1.17')
-
 import org.yaml.snakeyaml.Yaml
 
 Logger logger = Logger.getLogger("")
