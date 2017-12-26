@@ -8,20 +8,19 @@ COPY plugins.txt /usr/share/jenkins/ref/plugins.txt
 RUN /usr/local/bin/install-plugins.sh < /usr/share/jenkins/ref/plugins.txt
 
 # Jenkins Global Configuration
-COPY jenkins_config.yml $JENKINS_CONFIG_PATH/main_config.yml
+COPY modules/jenkins_config.yml $JENKINS_CONFIG_PATH/main_config.yml
 COPY /src/main/groovy/SetJenkinsMainConfig.groovy /usr/share/jenkins/ref/init.groovy.d/00MainConfig.groovy
 
-# User Configuration
-COPY security.yml $JENKINS_CONFIG_PATH/security.yml
-COPY /src/main/groovy/ConfigureSecurityPlugin.groovy /usr/share/jenkins/ref/init.groovy.d/01Security.groovy
+# CSRF Configuration
+COPY /src/main/groovy/ConfigureCSRF.groovy /usr/share/jenkins/ref/init.groovy.d/01Csrf.groovy
 
 # Credential Import
-COPY credentials/* $JENKINS_CONFIG_PATH/credentials/
-COPY credentials.yml $JENKINS_CONFIG_PATH/credentials.yml
+COPY modules/credentials/* $JENKINS_CONFIG_PATH/credentials/
+COPY modules/credentials.yml $JENKINS_CONFIG_PATH/credentials.yml
 COPY /src/main/groovy/SetCredentials.groovy /usr/share/jenkins/ref/init.groovy.d/10Credentials.groovy
 
 # Git Global Configuration
-COPY git_config.yml $JENKINS_CONFIG_PATH/git_config.yml
+COPY modules/git_config.yml $JENKINS_CONFIG_PATH/git_config.yml
 COPY /src/main/groovy/SetGitConfig.groovy /usr/share/jenkins/ref/init.groovy.d/20ScmGit.groovy
 
 EXPOSE 8080

@@ -126,8 +126,5 @@ if (formatterConfig.FORMATTER_TYPE.toLowerCase() == 'rawhtml') {
     System.exit(1)
 }
 
-// Configure CSRF
-jenkins.setCrumbIssuer(new DefaultCrumbIssuer(true))
-
 jenkins.save()
 logger.info("Finished configuring the main Jenkins options.")
