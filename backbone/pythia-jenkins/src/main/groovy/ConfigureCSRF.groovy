@@ -29,9 +29,9 @@ if (jenkins.isQuietingDown()) {
     if (!csrfEnabled) {
         logger.info("Jenkins CSRF is disabled in ${configPath}/main_config.yml")
         System.exit(0)
+    } else {
+        logger.info("CSRF has been configured for Jenkins.")
+        jenkins.setCrumbIssuer(new DefaultCrumbIssuer(true))
+        jenkins.save()
     }
-
-    logger.info("CSRF has been configured for Jenkins.")
-    jenkins.setCrumbIssuer(new DefaultCrumbIssuer(true))
-    jenkins.save()
 }
