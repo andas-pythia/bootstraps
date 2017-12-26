@@ -22,7 +22,6 @@ import hudson.slaves.EnvironmentVariablesNodeProperty.Entry
 import hudson.model.Node.Mode
 import hudson.markup.RawHtmlMarkupFormatter
 import hudson.markup.EscapedMarkupFormatter
-import hudson.security.csrf.DefaultCrumbIssuer
 import org.yaml.snakeyaml.Yaml
 
 Logger logger = Logger.getLogger("")
