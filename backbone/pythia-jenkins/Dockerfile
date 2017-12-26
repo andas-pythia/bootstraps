@@ -14,6 +14,9 @@ COPY /src/main/groovy/SetJenkinsMainConfig.groovy /usr/share/jenkins/ref/init.gr
 # CSRF Configuration
 COPY /src/main/groovy/ConfigureCSRF.groovy /usr/share/jenkins/ref/init.groovy.d/01Csrf.groovy
 
+# Disable CLI
+COPY /src/main/groovy/DisableJenkinsCli.groovy /usr/share/jenkins/ref/init.groovy.d/02Cli.groovy
+
 # Credential Import
 COPY modules/credentials/* $JENKINS_CONFIG_PATH/credentials/
 COPY modules/credentials.yml $JENKINS_CONFIG_PATH/credentials.yml
