@@ -26,3 +26,5 @@ CLI:
     CLI_ENABLED: false
 CSRF:
     CSRF_ENABLED: true
+JNLP:
+    JNLP_SECURED: true

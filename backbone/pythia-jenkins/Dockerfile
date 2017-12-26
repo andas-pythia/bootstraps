@@ -17,6 +17,9 @@ COPY /src/main/groovy/ConfigureCSRF.groovy /usr/share/jenkins/ref/init.groovy.d/
 # Disable CLI
 COPY /src/main/groovy/DisableJenkinsCli.groovy /usr/share/jenkins/ref/init.groovy.d/02Cli.groovy
 
+# Secure JNLP
+COPY /src/main/groovy/SecureJenkinsJnlp.groovy /usr/share/jenkins/ref/init.groovy.d/03Jnlp.groovy
+
 # Credential Import
 COPY modules/credentials/* $JENKINS_CONFIG_PATH/credentials/
 COPY modules/credentials.yml $JENKINS_CONFIG_PATH/credentials.yml
