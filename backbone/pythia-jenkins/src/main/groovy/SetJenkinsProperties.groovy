@@ -15,19 +15,25 @@ import org.yaml.snakeyaml.Yaml
 Logger logger = Logger.getLogger("")
 Yaml yaml = new Yaml()
 
-String configPath = System.getenv("JENKINS_CONFIG_PATH")
-String configText
 
-try {
-    configText = new File("${configPath}/properties_config.yml").text
-} catch (FileNotFoundException e) {
-    logger.severe("Cannot find config file path @ ${configPath}/properties_config.yml")
-    jenkins.doSafeExit(null)
-    System.exit(1)
-}
+if (jenkins.isQuietingDown()) {
+    logger.info('No action taken. Shutdown mode enabled.')
+    System.exit(0)
+} else {
+    String configPath = System.getenv("JENKINS_CONFIG_PATH")
+    String configText
 
-List properties = yaml.load(configText)
+    try {
+        configText = new File("${configPath}/properties_config.yml").text
+    } catch (FileNotFoundException e) {
+        logger.severe("Cannot find config file path @ ${configPath}/properties_config.yml")
+        jenkins.doSafeExit(null)
+        System.exit(1)
+    }
 
-properties.each { property ->
-    System.setProperty(property.KEY, property.VALUE)
+    List properties = yaml.load(configText)
+
+    properties.each { property ->
+        System.setProperty(property.KEY, property.VALUE)
+    }
 }
