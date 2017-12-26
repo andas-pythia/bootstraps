@@ -21,7 +21,8 @@ COPY credentials.yml $JENKINS_CONFIG_PATH/credentials.yml
 COPY /src/main/groovy/SetCredentials.groovy /usr/share/jenkins/ref/init.groovy.d/10Credentials.groovy
 
 # Git Global Configuration
-COPY /src/main/groovy/SetGitGlobalConfig.groovy /usr/share/jenkins/ref/init.groovy.d/20ScmGit.groovy
+COPY git_config.yml $JENKINS_CONFIG_PATH/git_config.yml
+COPY /src/main/groovy/SetGitConfig.groovy /usr/share/jenkins/ref/init.groovy.d/20ScmGit.groovy
 
 EXPOSE 8080
 EXPOSE 50000
