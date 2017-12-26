@@ -33,7 +33,7 @@ if (jenkins.isQuietingDown()) {
     System.exit(0)
 } else {
     String configPath = System.getenv("JENKINS_CONFIG_PATH")
-    String configText = ''
+    String configText
 
     try {
         configText = new File("${configPath}/main_config.yml").text
