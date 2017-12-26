@@ -2,13 +2,7 @@
 
 ## Notes
 
-A localfile called `adminPassword.txt` should be created for the admin account password in Jenkins.
-
-`adminPassword.txt`:
-
-```text
-passwordGoesHere
-```
+None at this time.
 
 ## Build jobs
 
@@ -17,7 +11,7 @@ passwordGoesHere
 Jenkins should be able to:
 
 1. bring up a build slave of a certain type
-1. execute bulid steps
+1. execute bulid steps / pipeline
 1. register the distributable binary or docker container to a registry or centralized repository
 
 Jenkins should then be able to:
