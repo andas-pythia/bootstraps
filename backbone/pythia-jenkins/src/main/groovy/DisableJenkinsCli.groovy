@@ -64,29 +64,30 @@ if (jenkins.isQuietingDown()) {
     if (cliEnabled) {
         logger.info("Jenkins CLI is enabled in ${configPath}/main_config.yml")
         System.exit(0)
-    }
+    } else {
 
-    jenkins.getDescriptor("jenkins.CLI").get().setEnabled(false)
+        jenkins.getDescriptor("jenkins.CLI").get().setEnabled(false)
 
-    def agentProtocol = AgentProtocol.all()
-    agentProtocol.each { agent ->
-        if (agent.name && agent.name.contains("CLI")) {
-            logger.info("Disabling ${agent.name}...")
-            agentProtocol.remove(agent)
-        }
-    }
-
-    // 'lst' is exposed by Jenkins (Hudson)
-    def removal = { lst ->
-        lst.each { plugin ->
-            if (plugin.getClass().name.contains("CLIAction")) {
-                logger.info("Disabling ${plugin.getClass().name}...")
-                lst.remove(plugin)
+        def agentProtocol = AgentProtocol.all()
+        agentProtocol.each { agent ->
+            if (agent.name && agent.name.contains("CLI")) {
+                logger.info("Disabling ${agent.name}...")
+                agentProtocol.remove(agent)
             }
         }
-    }
 
-    logger.info("Jenkins CLI subsystems, modules, and agents removed.")
-    removal(jenkins.getExtensionList(RootAction.class))
-    removal(jenkins.actions)
+        // 'lst' is exposed by Jenkins (Hudson)
+        def removal = { lst ->
+            lst.each { plugin ->
+                if (plugin.getClass().name.contains("CLIAction")) {
+                    logger.info("Disabling ${plugin.getClass().name}...")
+                    lst.remove(plugin)
+                }
+            }
+        }
+
+        logger.info("Jenkins CLI subsystems, modules, and agents removed.")
+        removal(jenkins.getExtensionList(RootAction.class))
+        removal(jenkins.actions)
+    }
 }

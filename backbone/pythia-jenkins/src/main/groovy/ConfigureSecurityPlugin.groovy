@@ -45,8 +45,8 @@ if (jenkins.isQuietingDown()) {
                                                         oauthSettings.CLIENT_SECRET,
                                                         oauthSettings.SCOPES
                                                         )
+
     if (!github_realm.equals(jenkins.getSecurityRealm())) {
-        // swap in the new Github Security realm (for an update)
         jenkins.setSecurityRealm(github_realm)
         jenkins.save()
     }
@@ -84,13 +84,13 @@ if (jenkins.isQuietingDown()) {
         logger.info("Adding security group: ${group.NAME}")
         group.USERS.each { user ->
             group.PERMISSIONS.each { permissionString ->
-                if (validPermissions.any { it == permissionString }) {
-                    Permission permission = Permission.fromId(permissionString)
-                    strategy.add(permission, user)
-                } else {
+                if (!validPermissions.any { it == permissionString }) {
                     logger.severe("Permission ${permissaionString} is not supported in Jenkins")
                     jenkins.doSafeExit(null)
                     System.exit(1)
+                } else {
+                    Permission permission = Permission.fromId(permissionString)
+                    strategy.add(permission, user)
                 }
             }
         }
