@@ -85,7 +85,7 @@ if (jenkins.isQuietingDown()) {
         group.USERS.each { user ->
             group.PERMISSIONS.each { permissionString ->
                 if (!validPermissions.any { it == permissionString }) {
-                    logger.severe("Permission ${permissaionString} is not supported in Jenkins")
+                    logger.severe("Permission (${permissaionString}) is not supported in Jenkins")
                     jenkins.doSafeExit(null)
                     System.exit(1)
                 } else {
