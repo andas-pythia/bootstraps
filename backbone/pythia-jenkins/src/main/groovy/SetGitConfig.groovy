@@ -27,8 +27,8 @@ if (jenkins.isQuietingDown()) {
 
     def gitScm = jenkins.getDescriptorByType(hudson.plugins.git.GitSCM.DescriptorImpl.class)
 
-    gitScm.setGlobalConfigName(gitConfig.NAME)
-    gitScm.setGlobalConfigEmail(gitConfig.EMAIL)
+    gitScm.setGlobalConfigName(gitConfig.globalConfigName)
+    gitScm.setGlobalConfigEmail(gitConfig.globalConfigEmail)
 
     jenkins.save()
 }
