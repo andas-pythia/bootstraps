@@ -1,3 +1,3 @@
 ---
-- KEY: "hudson.footerURL"
-  VALUE: "http://nicseltzer.com"
+- key: "hudson.footerURL"
+  value: "http://nicseltzer.com"

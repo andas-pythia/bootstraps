@@ -27,7 +27,6 @@ Logger logger = Logger.getLogger("")
 Jenkins jenkins = Jenkins.getInstance()
 Yaml yaml = new Yaml()
 
-
 if (jenkins.isQuietingDown()) {
     logger.info('No action taken. Shutdown mode enabled.')
     System.exit(0)

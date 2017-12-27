@@ -43,28 +43,27 @@ if (jenkins.isQuietingDown()) {
         System.exit(1)
     }
 
-    Map mainConfig = yaml.load(configText).MAIN
-    Map propertiesConfig = yaml.load(configText).GLOBAL_PROPERTIES
-    Map locationConfig = yaml.load(configText).LOCATION
-    Map shellConfig = yaml.load(configText).SHELL
-    Map formatterConfig = yaml.load(configText).FORMATTER
+    Map mainConfig = yaml.load(configText).Main
+    Map propertiesConfig = yaml.load(configText).GlobalProperties
+    Map locationConfig = yaml.load(configText).Location
+    Map shellConfig = yaml.load(configText).Shell
+    Map formatterConfig = yaml.load(configText).Formatter
 
     logger.info("Configuring basic Jenkins options")
     try {
-        jenkins.setSystemMessage(mainConfig.SYSTEM_MESSAGE)
-        jenkins.setNumExecutors(mainConfig.NUMBER_OF_EXECUTORS)
-        jenkins.setLabelString(mainConfig.LABELS.join(' '))
-        jenkins.setQuietPeriod(mainConfig.QUIET_PERIOD)
-        jenkins.setScmCheckoutRetryCount(mainConfig.SCM_RETRY_COUNT)
-        jenkins.setDisableRememberMe(mainConfig.DISABLE_REMEMBER_ME)
-        if (mainConfig.USAGE == 'NORMAL') {
+        jenkins.setSystemMessage(mainConfig.systemMessage)
+        jenkins.setNumExecutors(mainConfig.numberOfExecutors)
+        jenkins.setLabelString(mainConfig.labels.join(' '))
+        jenkins.setQuietPeriod(mainConfig.quietPeriod)
+        jenkins.setScmCheckoutRetryCount(mainConfig.scmCheckoutRetryCount)
+        jenkins.setDisableRememberMe(mainConfig.disableRememberMe)
+        if (mainConfig.usage == 'NORMAL') {
             jenkins.setMode(Mode.NORMAL)
-        } else if (mainConfig.USAGE == 'EXCLUSIVE') {
+        } else if (mainConfig.usage == 'EXCLUSIVE') {
             jenkins.setMode(Mode.EXCLUSIVE)
         }
         else {
-            logger.severe('Invalid value specified for USAGE')
-            logger.severe('Exiting')
+            logger.severe('Invalid value specified for usage. Exiting.')
             jenkins.doSafeExit(null)
             System.exit(1)
         }
@@ -76,7 +75,7 @@ if (jenkins.isQuietingDown()) {
 
     logger.info("Adding global environment variables to Jenkins")
     List<Entry> envVarList = new ArrayList<Entry>()
-    propertiesConfig.ENVIRONMENT_VARIABLES.each { envVar ->
+    propertiesConfig.environmentVariables.each { envVar ->
                     try {
                         envVarList.add(new Entry(envVar.NAME, envVar.VALUE))
                     } catch (MissingMethodException e) {
@@ -95,8 +94,8 @@ if (jenkins.isQuietingDown()) {
     logger.info("Setting up the Jenkins URL")
     JenkinsLocationConfiguration location = jenkins.getExtensionList(jenkins.model.JenkinsLocationConfiguration).get(0)
     try {
-        location.setUrl(locationConfig.URL)
-        location.setAdminAddress(locationConfig.ADMIN_EMAIL)
+        location.setUrl(locationConfig.url)
+        location.setAdminAddress(locationConfig.adminEmail)
     } catch (MissingMethodException e) {
         logger.severe("Invalid value in the LOCATION configuration of ${configPath}/main_config.yml")
         jenkins.doSafeExit(null)
@@ -104,28 +103,28 @@ if (jenkins.isQuietingDown()) {
     }
 
     logger.info("Setting the default shell used by Jenkins")
-    Process p = "stat ${shellConfig.EXECUTABLE}".execute()
+    Process p = "stat ${shellConfig.executable}".execute()
     p.waitForOrKill(1000)
     if (p.exitcode != 0) {
-        logger.severe("Executable ${shellConfig.EXECUTABLE} not present on system")
+        logger.severe("Executable ${shellConfig.executable} not present on system")
         jenkins.doSafeExit(null)
         System.exit(1)
     }
     Shell.DescriptorImpl shell = jenkins.getExtensionList(Shell.DescriptorImpl.class).get(0)
-    shell.setShell(shellConfig.EXECUTABLE)
+    shell.setShell(shellConfig.executable)
     shell.save()
 
     // Configure the markup formatter for build and job descriptions
-    if (formatterConfig.FORMATTER_TYPE.toLowerCase() == 'rawhtml') {
+    if (formatterConfig.formatterType.toLowerCase() == 'rawhtml') {
         RawHtmlMarkupFormatter markupFormatter = new RawHtmlMarkupFormatter(
-            formatterConfig.DISABLE_SYNTAX_HIGHLIGHTING
+            formatterConfig.disableSyntaxHighlighting
         )
         jenkins.setMarkupFormatter(markupFormatter)
-    } else if (formatterConfig.FORMATTER_TYPE.toLowerCase() == 'plain') {
+    } else if (formatterConfig.formatterType.toLowerCase() == 'plain') {
         EscapedMarkupFormatter markupFormatter = new EscapedMarkupFormatter()
         jenkins.setMarkupFormatter(markupFormatter)
     } else {
-        logger.severe("Invalid value in the FORMATTER configuration of ${configPath}/main_config.yml")
+        logger.severe("Invalid value in the Formatter configuration of ${configPath}/main_config.yml")
         jenkins.doSafeExit(null)
         System.exit(1)
     }

@@ -1,16 +1,16 @@
 ---
-OAUTH_SETTINGS:
-    GITHUB_WEB_URI: 'https://github.com'
-    GITHUB_API_URI: 'https://api.github.com'
-    CLIENT_ID: 'clientIdGoesHere'
-    CLIENT_SECRET: 'secretGoesHere'
-    SCOPES: 'read:org'
-SECURITY_GROUPS:
+oauthSettings:
+    githubWebUrl: 'https://github.com'
+    githubApiUrl: 'https://api.github.com'
+    clientId: 'clientIdGoesHere'
+    clientSecret: 'secretGoesHere'
+    scopes: 'read:org'
+securityGroups:
     # Users with similar permission needs should be grouped
     # into security groups. This can include GH users, teams,
     # orgs, and the anonymous user
-    - NAME: 'basic anonymous permissions'
-      PERMISSIONS:
+    - name: 'basic anonymous permissions'
+      permissions:
         - 'hudson.model.Computer.Build'
         - 'hudson.model.Computer.Configure'
         - 'hudson.model.Computer.Connect'
@@ -39,5 +39,5 @@ SECURITY_GROUPS:
         # These were the previous perimssions allowed to an anonymous user.
         # - 'hudson.model.Hudson.Read'
         # - 'hudson.model.Hudson.Administer'
-      USERS:
+      users:
         - 'anonymous'

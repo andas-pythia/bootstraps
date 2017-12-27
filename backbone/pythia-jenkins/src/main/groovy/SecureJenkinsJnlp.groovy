@@ -25,7 +25,6 @@ import java.util.logging.Logger
 import jenkins.model.Jenkins
 import org.yaml.snakeyaml.Yaml
 
-
 Logger logger = Logger.getLogger("")
 Jenkins jenkins = Jenkins.getInstance()
 Yaml yaml = new Yaml()
@@ -45,7 +44,7 @@ if (jenkins.isQuietingDown()) {
         System.exit(1)
     }
 
-    Boolean jnlpSecured = (Boolean) yaml.load(configText).JNLP.JNLP_SECURED
+    Boolean jnlpSecured = (Boolean) yaml.load(configText).Jnlp.jnlpSecured
 
     if (!jnlpSecured) {
         logger.info("Additional JNLP security hasn't been enacted. All protocols still enabled.")

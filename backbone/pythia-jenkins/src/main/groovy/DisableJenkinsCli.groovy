@@ -59,7 +59,7 @@ if (jenkins.isQuietingDown()) {
         System.exit(1)
     }
 
-    Boolean cliEnabled = (Boolean) yaml.load(configText).CLI.CLI_ENABLED
+    Boolean cliEnabled = (Boolean) yaml.load(configText).Cli.cliEnabled
 
     if (cliEnabled) {
         logger.info("Jenkins CLI is enabled in ${configPath}/main_config.yml")

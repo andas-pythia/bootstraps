@@ -36,14 +36,14 @@ if (jenkins.isQuietingDown()) {
         System.exit(1)
     }
 
-    securityGroups = yaml.load(configText).SECURITY_GROUPS
-    oauthSettings = yaml.load(configText).OAUTH_SETTINGS
+    securityGroups = yaml.load(configText).securityGroups
+    oauthSettings = yaml.load(configText).oauthSettings
 
-    SecurityRealm github_realm = new GithubSecurityRealm(oauthSettings.GITHUB_WEB_URI,
-                                                        oauthSettings.GITHUB_API_URI,
-                                                        oauthSettings.CLIENT_ID,
-                                                        oauthSettings.CLIENT_SECRET,
-                                                        oauthSettings.SCOPES
+    SecurityRealm github_realm = new GithubSecurityRealm(oauthSettings.githubWebUrl,
+                                                        oauthSettings.githubApiUrl,
+                                                        oauthSettings.clientId,
+                                                        oauthSettings.clientSecret,
+                                                        oauthSettings.scopes
                                                         )
 
     if (!github_realm.equals(jenkins.getSecurityRealm())) {
@@ -81,9 +81,9 @@ if (jenkins.isQuietingDown()) {
     def strategy = new ProjectMatrixAuthorizationStrategy()
 
     securityGroups.each { group ->
-        logger.info("Adding security group: ${group.NAME}")
-        group.USERS.each { user ->
-            group.PERMISSIONS.each { permissionString ->
+        logger.info("Adding security group: ${group.name}")
+        group.users.each { user ->
+            group.permissions.each { permissionString ->
                 if (!validPermissions.any { it == permissionString }) {
                     logger.severe("Permission (${permissaionString}) is not supported in Jenkins")
                     jenkins.doSafeExit(null)

@@ -34,6 +34,6 @@ if (jenkins.isQuietingDown()) {
     List properties = yaml.load(configText)
 
     properties.each { property ->
-        System.setProperty(property.KEY, property.VALUE)
+        System.setProperty(property.key, property.value)
     }
 }
