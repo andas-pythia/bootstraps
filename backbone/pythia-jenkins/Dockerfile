@@ -34,8 +34,8 @@ COPY modules/git.yml ${JENKINS_CONFIG_PATH}/git.yml
 COPY /src/main/groovy/SetGitConfig.groovy ${JENKINS_INIT_PATH}/20ScmGit.groovy
 
 # GitHub Pull Request Builder Configuration
-# COPY modules/ghprb.yml ${JENKINS_CONFIG_PATH}/ghprb.yml
-# COPY /src/main/groovy/SetGhprbConfig.groovy ${JENKINS_INIT_PATH}/21GitHubPullRequestBuilder.groovy
+COPY modules/ghprb.yml ${JENKINS_CONFIG_PATH}/ghprb.yml
+COPY /src/main/groovy/SetGhprbConfig.groovy ${JENKINS_INIT_PATH}/21GitHubPullRequestBuilder.groovy
 
 # Import the intial Jenkins jobs responsible for generating all other jobs based on DSL
 # DSL and Pipeline DSL are stored in Github

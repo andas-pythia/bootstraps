@@ -1,0 +1,32 @@
+---
+serverApiUrl: 'https://api.github.com'
+# ACCESS_TOKEN: 'accessTokenStringGoesHere' Not used
+adminList:
+    - 'anonymous'
+requestForTestingPhrase: 'Can one of the admins verify this patch?'
+whitelistPhrase: '.*add\W+to\W+whitelist.*'
+okToTestPhrase: '.*ok\W+to\W+test.*'
+retestPhrase: '.*test\W+this\W+please.*'
+skipBuildPhrase: '.*\[skip\W+ci\].*'
+cronSchedule: 'H/5 * * * *'
+useComments: true
+useDetailedComments: false
+manageWebhooks: false
+unstableAs: 'ERROR'
+autoCloseFailedPrs: false
+displayErrorsDownstream: true
+githubAuth: 'githubAuthGoesHere'
+simpleStatus: 'simple status'
+publishJenkinsUrl: 'jenkins.pythia.andas.io'
+buildLogLinesToDisplay: 100
+resultMessages:
+    - status: 'SUCCESS'
+      message: 'success.'
+    - status: 'ERROR'
+      message: 'error.'
+    - status: 'PENDING'
+      message: 'pending.'
+    - status: 'FAILURE'
+      message: 'failure.'
+credentialsId: 'secretFileOne'
+sharedSecret: 'sharedSecret'
