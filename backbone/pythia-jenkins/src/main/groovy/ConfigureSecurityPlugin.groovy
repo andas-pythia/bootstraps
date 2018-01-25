@@ -51,32 +51,33 @@ if (jenkins.isQuietingDown()) {
         jenkins.save()
     }
 
-    List validPermissions = [   'hudson.model.Computer.Build',
-                                'hudson.model.Computer.Configure',
-                                'hudson.model.Computer.Connect',
-                                'hudson.model.Computer.Create',
-                                'hudson.model.Computer.Delete',
-                                'hudson.model.Computer.Disconnect',
-                                'hudson.model.Hudson.Administer',
-                                'hudson.model.Hudson.ConfigureUpdateCenter',
-                                'hudson.model.Hudson.Read',
-                                'hudson.model.Hudson.RunScripts',
-                                'hudson.model.Hudson.UploadPlugins',
-                                'hudson.model.Item.Build',
-                                'hudson.model.Item.Cancel',
-                                'hudson.model.Item.Configure',
-                                'hudson.model.Item.Create',
-                                'hudson.model.Item.Delete',
-                                'hudson.model.Item.Discover',
-                                'hudson.model.Item.Read',
-                                'hudson.model.Item.Workspace',
-                                'hudson.model.Run.Delete',
-                                'hudson.model.Run.Update',
-                                'hudson.model.View.Configure',
-                                'hudson.model.View.Create',
-                                'hudson.model.View.Delete',
-                                'hudson.model.View.Read'
-                                ]
+    List validPermissions = [   
+        'hudson.model.Computer.Build',
+        'hudson.model.Computer.Configure',
+        'hudson.model.Computer.Connect',
+        'hudson.model.Computer.Create',
+        'hudson.model.Computer.Delete',
+        'hudson.model.Computer.Disconnect',
+        'hudson.model.Hudson.Administer',
+        'hudson.model.Hudson.ConfigureUpdateCenter',
+        'hudson.model.Hudson.Read',
+        'hudson.model.Hudson.RunScripts',
+        'hudson.model.Hudson.UploadPlugins',
+        'hudson.model.Item.Build',
+        'hudson.model.Item.Cancel',
+        'hudson.model.Item.Configure',
+        'hudson.model.Item.Create',
+        'hudson.model.Item.Delete',
+        'hudson.model.Item.Discover',
+        'hudson.model.Item.Read',
+        'hudson.model.Item.Workspace',
+        'hudson.model.Run.Delete',
+        'hudson.model.Run.Update',
+        'hudson.model.View.Configure',
+        'hudson.model.View.Create',
+        'hudson.model.View.Delete',
+        'hudson.model.View.Read'
+        ]
 
     def strategy = new ProjectMatrixAuthorizationStrategy()
 
