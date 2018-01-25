@@ -4,6 +4,9 @@ ENV JAVA_OPTS="-Djenkins.install.runSetupWizard=false"
 ENV JENKINS_CONFIG_PATH $JENKINS_HOME/init-configs
 ENV JENKINS_INIT_PATH /usr/share/jenkins/ref/init.groovy.d
 
+EXPOSE 8080
+EXPOSE 50000
+
 # Plugin installation
 COPY plugins.txt /usr/share/jenkins/ref/plugins.txt
 RUN /usr/local/bin/install-plugins.sh < /usr/share/jenkins/ref/plugins.txt
@@ -39,6 +42,3 @@ COPY /src/main/groovy/SetGitConfig.groovy ${JENKINS_INIT_PATH}/20ScmGit.groovy
 # TODO: Determine the best way to break out the repositories for job isolation
 # COPY modules/seedOfSeeds.xml /var/lib/jenkins/init-configs/xml/seed_job.xml
 # COPY /src/main/groovy/CreateSeedJobOfSeedJobs.groovy ${JENKINS_INIT_PATH}/50_Seeder.groovy
-
-EXPOSE 8080
-EXPOSE 50000
