@@ -37,9 +37,9 @@ if (jenkins.isQuietingDown()) {
     String configText
 
     try {
-        configText = new File("${configPath}/main_config.yml").text
+        configText = new File("${configPath}/jenkins.yml").text
     } catch (FileNotFoundException e) {
-        logger.severe("Cannot find config file path @ ${configPath}/main_config.yml")
+        logger.severe("Cannot find config file path @ ${configPath}/jenkins.yml")
         jenkins.doSafeExit(null)
         System.exit(1)
     }

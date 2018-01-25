@@ -12,7 +12,7 @@ COPY plugins.txt /usr/share/jenkins/ref/plugins.txt
 RUN /usr/local/bin/install-plugins.sh < /usr/share/jenkins/ref/plugins.txt
 
 # Jenkins Global Configuration
-COPY modules/jenkins.yml $JENKINS_CONFIG_PATH/jenkins.yml
+COPY modules/jenkins.yml ${JENKINS_CONFIG_PATH}/jenkins.yml
 COPY /src/main/groovy/SetJenkinsMainConfig.groovy ${JENKINS_INIT_PATH}/00MainConfig.groovy
 
 # CSRF Configuration
@@ -25,16 +25,16 @@ COPY /src/main/groovy/DisableJenkinsCli.groovy ${JENKINS_INIT_PATH}/02Cli.groovy
 COPY /src/main/groovy/SecureJenkinsJnlp.groovy ${JENKINS_INIT_PATH}/03Jnlp.groovy
 
 # Credential Import
-COPY modules/credentials/* $JENKINS_CONFIG_PATH/credentials/
-COPY modules/credentials.yml $JENKINS_CONFIG_PATH/credentials.yml
+COPY modules/credentials/* ${JENKINS_CONFIG_PATH}/credentials/
+COPY modules/credentials.yml ${JENKINS_CONFIG_PATH}/credentials.yml
 COPY /src/main/groovy/SetCredentials.groovy ${JENKINS_INIT_PATH}/10Credentials.groovy
 
 # Git Global Configuration
-COPY modules/git.yml $JENKINS_CONFIG_PATH/git.yml
+COPY modules/git.yml ${JENKINS_CONFIG_PATH}/git.yml
 COPY /src/main/groovy/SetGitConfig.groovy ${JENKINS_INIT_PATH}/20ScmGit.groovy
 
 # GitHub Pull Request Builder Configuration
-# COPY modules/ghprb.yml $JENKINS_CONFIG_PATH/ghprb.yml
+# COPY modules/ghprb.yml ${JENKINS_CONFIG_PATH}/ghprb.yml
 # COPY /src/main/groovy/SetGhprbConfig.groovy ${JENKINS_INIT_PATH}/21GitHubPullRequestBuilder.groovy
 
 # Import the intial Jenkins jobs responsible for generating all other jobs based on DSL
