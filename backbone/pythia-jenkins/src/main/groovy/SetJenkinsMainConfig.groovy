@@ -57,9 +57,9 @@ if (jenkins.isQuietingDown()) {
         jenkins.setQuietPeriod(mainConfig.quietPeriod)
         jenkins.setScmCheckoutRetryCount(mainConfig.scmCheckoutRetryCount)
         jenkins.setDisableRememberMe(mainConfig.disableRememberMe)
-        if (mainConfig.usage == 'NORMAL') {
+        if (mainConfig.usage.toUpperCase() == 'NORMAL') {
             jenkins.setMode(Mode.NORMAL)
-        } else if (mainConfig.usage == 'EXCLUSIVE') {
+        } else if (mainConfig.usage.toUpperCase() == 'EXCLUSIVE') {
             jenkins.setMode(Mode.EXCLUSIVE)
         }
         else {
@@ -68,7 +68,7 @@ if (jenkins.isQuietingDown()) {
             System.exit(1)
         }
     } catch (MissingMethodException e) {
-        logger.severe("Invalid value specified for MAIN configuration in ${configPath}/main_config.yml")
+        logger.severe("Invalid value specified for Main configuration in ${configPath}/main_config.yml")
         jenkins.doSafeExit(null)
         System.exit(1)
     }

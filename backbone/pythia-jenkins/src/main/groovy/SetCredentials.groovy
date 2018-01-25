@@ -63,7 +63,7 @@ if (jenkins.isQuietingDown()) {
         credentialType = newCredential.credentialType
         id = newCredential.id
         description = newCredential.description
-        scopeString = newCredential.scope
+        scopeString = newCredential.scope.toUpperCase()
 
         // All credentials must have a credentialType and scope
         if (!credentialType || !scopeString) {
