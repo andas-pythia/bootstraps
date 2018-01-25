@@ -17,9 +17,9 @@ if (jenkins.isQuietingDown()) {
     String configText
 
     try {
-        configText = new File("${configPath}/main_config.yml").text
+        configText = new File("${configPath}/jenkins.yml").text
     } catch (FileNotFoundException e) {
-        logger.severe("Cannot find config file path @ ${configPath}/main_config.yml")
+        logger.severe("Cannot find config file path @ ${configPath}/jenkins.yml")
         jenkins.doSafeExit(null)
         System.exit(1)
     }
@@ -27,7 +27,7 @@ if (jenkins.isQuietingDown()) {
     Boolean csrfEnabled = (Boolean) yaml.load(configText).Csrf.csrfEnabled
 
     if (!csrfEnabled) {
-        logger.info("Jenkins CSRF is disabled in ${configPath}/main_config.yml")
+        logger.info("Jenkins CSRF is disabled in ${configPath}/jenkins.yml")
         System.exit(0)
     } else {
         jenkins.setCrumbIssuer(new DefaultCrumbIssuer(true))

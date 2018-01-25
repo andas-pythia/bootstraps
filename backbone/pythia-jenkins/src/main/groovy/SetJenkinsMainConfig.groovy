@@ -36,9 +36,9 @@ if (jenkins.isQuietingDown()) {
     String configText
 
     try {
-        configText = new File("${configPath}/main_config.yml").text
+        configText = new File("${configPath}/jenkins.yml").text
     } catch (FileNotFoundException e) {
-        logger.severe("Cannot find config file path @ ${configPath}/main_config.yml")
+        logger.severe("Cannot find config file path @ ${configPath}/jenkins.yml")
         jenkins.doSafeExit(null)
         System.exit(1)
     }
@@ -68,7 +68,7 @@ if (jenkins.isQuietingDown()) {
             System.exit(1)
         }
     } catch (MissingMethodException e) {
-        logger.severe("Invalid value specified for Main configuration in ${configPath}/main_config.yml")
+        logger.severe("Invalid value specified for Main configuration in ${configPath}/jenkins.yml")
         jenkins.doSafeExit(null)
         System.exit(1)
     }
@@ -79,7 +79,7 @@ if (jenkins.isQuietingDown()) {
                     try {
                         envVarList.add(new Entry(envVar.NAME, envVar.VALUE))
                     } catch (MissingMethodException e) {
-                        logger.severe("Invalid value specified for environment variables in ${configPath}/main_config.yml")
+                        logger.severe("Invalid value specified for environment variables in ${configPath}/jenkins.yml")
                         jenkins.doSafeExit(null)
                         System.exit(1)
                     }
@@ -97,7 +97,7 @@ if (jenkins.isQuietingDown()) {
         location.setUrl(locationConfig.url)
         location.setAdminAddress(locationConfig.adminEmail)
     } catch (MissingMethodException e) {
-        logger.severe("Invalid value in the LOCATION configuration of ${configPath}/main_config.yml")
+        logger.severe("Invalid value in the LOCATION configuration of ${configPath}/jenkins.yml")
         jenkins.doSafeExit(null)
         System.exit(1)
     }
@@ -124,7 +124,7 @@ if (jenkins.isQuietingDown()) {
         EscapedMarkupFormatter markupFormatter = new EscapedMarkupFormatter()
         jenkins.setMarkupFormatter(markupFormatter)
     } else {
-        logger.severe("Invalid value in the Formatter configuration of ${configPath}/main_config.yml")
+        logger.severe("Invalid value in the Formatter configuration of ${configPath}/jenkins.yml")
         jenkins.doSafeExit(null)
         System.exit(1)
     }
