@@ -27,11 +27,11 @@ COPY modules/credentials.yml $JENKINS_CONFIG_PATH/credentials.yml
 COPY /src/main/groovy/SetCredentials.groovy ${JENKINS_INIT_PATH}/10Credentials.groovy
 
 # Git Global Configuration
-COPY modules/git_config.yml $JENKINS_CONFIG_PATH/git_config.yml
+COPY modules/git.yml $JENKINS_CONFIG_PATH/git_config.yml
 COPY /src/main/groovy/SetGitConfig.groovy ${JENKINS_INIT_PATH}/20ScmGit.groovy
 
 # GitHub Pull Request Builder Configuration
-# COPY modules/github_pr_builder.yml $JENKINS_CONFIG_PATH/ghprb_config.yml
+# COPY modules/ghprb.yml $JENKINS_CONFIG_PATH/ghprb_config.yml
 # COPY /src/main/groovy/SetGhprbConfig.groovy ${JENKINS_INIT_PATH}/21GitHubPullRequestBuilder.groovy
 
 # Import the intial Jenkins jobs responsible for generating all other jobs based on DSL

@@ -16,9 +16,9 @@ if (jenkins.isQuietingDown()) {
     String configText
 
     try {
-        configText = new File("${configPath}/git_config.yml").text
+        configText = new File("${configPath}/git.yml").text
     } catch (FileNotFoundException e) {
-        logger.severe("Cannot find config file path @ ${configPath}/git_config.yml")
+        logger.severe("Cannot find config file path @ ${configPath}/git.yml")
         jenkins.doSafeExit(null)
         System.exit(1)
     }
