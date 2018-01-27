@@ -3,3 +3,9 @@
 
 # IDEA-related filestructures
 .idea/
+
+# Terraform
+.terraform/
+
+# protected
+credentials.yml
