@@ -1,8 +1,12 @@
 FROM jenkins/jenkins
 
+LABEL author='nic seltzer <nic@nicseltzer.com>'
+
 ENV JAVA_OPTS="-Djenkins.install.runSetupWizard=false"
 ENV JENKINS_CONFIG_PATH $JENKINS_HOME/init-configs
 ENV JENKINS_INIT_PATH /usr/share/jenkins/ref/init.groovy.d
+
+ENV DOCKER_CERT_PATH $JENKINS_HOME/docker-certificates
 
 EXPOSE 8080
 EXPOSE 50000
