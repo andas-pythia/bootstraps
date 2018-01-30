@@ -1,3 +1,5 @@
+#!/usr/bin/env groovy
+
 @Grab('org.yaml:snakeyaml:1.17')
 
 import java.util.logging.Logger

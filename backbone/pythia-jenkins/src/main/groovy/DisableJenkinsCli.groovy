@@ -1,3 +1,5 @@
+#!/usr/bin/env groovy
+
 /*
 The MIT License
 

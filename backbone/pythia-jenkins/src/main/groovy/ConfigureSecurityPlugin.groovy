@@ -1,3 +1,5 @@
+#!/usr/bin/env groovy
+
 /**
 * Security - User Plugin / GitHub OAUTH
 *

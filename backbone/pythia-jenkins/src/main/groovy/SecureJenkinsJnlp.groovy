@@ -1,3 +1,5 @@
+#!/usr/bin/env groovy
+
 /*
    Copyright (c) 2015-2017 Sam Gleske - https://github.com/samrocketman/jenkins-bootstrap-shared
    Copyright (c) 2017 Nic Seltzer

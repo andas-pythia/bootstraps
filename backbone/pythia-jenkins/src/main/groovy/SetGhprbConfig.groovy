@@ -1,10 +1,4 @@
-/*
-
-TODO: This entire thing is broken and needs to be reimagined. The configuration values
-are solid, but there are typos and inefficient patterns in use. I'd like to see importing
-YAML as an object, manipulating that object and then exporting that PO(G/J)O to JSON via Gson.
-
-*/
+#!/usr/bin/env groovy
 
 @Grab('org.yaml:snakeyaml:1.17')
 @Grab('org.mockito:mockito-all:1.10.19')
@@ -104,7 +98,6 @@ if (jenkins.isQuietingDown()) {
         whiteListLabels whiteList
         blackListLabels blackList
     }
-
     JSONObject jsonObj = new JSONObject(jsonRoot)
 
     StaplerRequest stapler =  new RequestImpl(

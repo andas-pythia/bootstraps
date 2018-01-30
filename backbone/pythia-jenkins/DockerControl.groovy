@@ -1,3 +1,5 @@
+#!/usr/bin/env groovy
+
 import groovy.util.CliBuilder
 
 
