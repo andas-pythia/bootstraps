@@ -46,10 +46,10 @@ if (jenkins.isQuietingDown()) {
         System.exit(1)
     }
 
-    Boolean jnlpSecured = (Boolean) yaml.load(configText).Jnlp.jnlpSecured
+    Boolean jnlpSecured = (Boolean) yaml.load(configText).jnlp.jnlpSecured
 
     if (!jnlpSecured) {
-        logger.info("Additional JNLP security hasn't been enacted. All protocols still enabled.")
+        logger.info("Additional JNLP security hasn't been configured. All protocols still enabled.")
         System.exit(0)
     } else {
         Set<String> agentProtocolsList = ['JNLP4-connect', 'Ping']

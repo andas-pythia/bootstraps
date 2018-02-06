@@ -26,7 +26,7 @@ if (jenkins.isQuietingDown()) {
         System.exit(1)
     }
 
-    Boolean csrfEnabled = (Boolean) yaml.load(configText).Csrf.csrfEnabled
+    Boolean csrfEnabled = (Boolean) yaml.load(configText).csrf.csrfEnabled
 
     if (!csrfEnabled) {
         logger.info("Jenkins CSRF is disabled in ${configPath}/jenkins.yml")

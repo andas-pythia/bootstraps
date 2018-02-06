@@ -36,7 +36,7 @@ securityGroups:
         - 'hudson.model.View.Create'
         - 'hudson.model.View.Delete'
         - 'hudson.model.View.Read'
-        # These were the previous perimssions allowed to an anonymous user.
+        # These were the perimssions previously allowed to an anonymous user.
         # - 'hudson.model.Hudson.Read'
         # - 'hudson.model.Hudson.Administer'
       users:

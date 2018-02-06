@@ -1,5 +1,5 @@
 ---
-Main:
+main:
     workSpaceRootPath: '${JENKINS_HOME}/workspace/${ITEM_FULLNAME}'
     buildRecordRootPath: '${ITEM_ROOTDIR}/builds'
     systemMessage: 'Pythia Build System'
@@ -10,21 +10,21 @@ Main:
     quietPeriod: 5
     scmCheckoutRetryCount: 15
     disableRememberMe: true
-GlobalProperties:
+globalProperties:
     environmentVariables:
     toolLocations:
-Location:
+location:
     url: 'http://build.pythia.andas.internal:8080'
     adminEmail: 'nic@nicseltzer.com'
-Shell:
+shell:
     executable: '/bin/bash'
-Formatter:
+formatter:
     formatterType: 'rawhtml'
     # Note: this option is only available for 'rawhtml' formatters
     disableSyntaxHighlighting: true
-Cli:
+cli:
     cliEnabled: false
-Csrf:
+csrf:
     csrfEnabled: true
-Jnlp:
+jnlp:
     jnlpSecured: true

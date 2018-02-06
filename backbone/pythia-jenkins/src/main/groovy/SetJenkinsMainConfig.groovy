@@ -45,11 +45,11 @@ if (jenkins.isQuietingDown()) {
         System.exit(1)
     }
 
-    Map mainConfig = yaml.load(configText).Main
-    Map propertiesConfig = yaml.load(configText).GlobalProperties
-    Map locationConfig = yaml.load(configText).Location
-    Map shellConfig = yaml.load(configText).Shell
-    Map formatterConfig = yaml.load(configText).Formatter
+    Map mainConfig = yaml.load(configText).main
+    Map propertiesConfig = yaml.load(configText).globalProperties
+    Map locationConfig = yaml.load(configText).location
+    Map shellConfig = yaml.load(configText).shell
+    Map formatterConfig = yaml.load(configText).formatter
 
     logger.info("Configuring basic Jenkins options")
     try {

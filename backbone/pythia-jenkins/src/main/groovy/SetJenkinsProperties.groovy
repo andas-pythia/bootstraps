@@ -17,7 +17,6 @@ import org.yaml.snakeyaml.Yaml
 Logger logger = Logger.getLogger("")
 Yaml yaml = new Yaml()
 
-
 if (jenkins.isQuietingDown()) {
     logger.info('No action taken. Shutdown mode enabled.')
     System.exit(0)
