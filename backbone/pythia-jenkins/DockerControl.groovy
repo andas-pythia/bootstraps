@@ -1,8 +1,5 @@
 #!/usr/bin/env groovy
 
-import groovy.util.CliBuilder
-
-
 public class DockerControl {
 
   static def appName = "pythia-jenkins"
