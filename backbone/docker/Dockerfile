@@ -1,6 +1,6 @@
 FROM alpine:latest
 
-MAINTAINER nic selzer <nic@nicseltzer.com>
+LABEL author='nic seltzer <nic@nicseltzer.com>'
 
 # install golang and golang dependencies
 RUN apk update && \

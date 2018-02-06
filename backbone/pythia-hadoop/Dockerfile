@@ -1,6 +1,6 @@
 FROM localhost:5000/pythia-hadoop
 
-MAINTAINER nic selzer <nic@nicseltzer.com>
+LABEL author='nic seltzer <nic@nicseltzer.com>'
 
 # install golang and golang dependencies
 # RUN yum upgrade -y
