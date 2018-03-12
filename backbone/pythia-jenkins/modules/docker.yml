@@ -1,0 +1,56 @@
+---
+dockerCertPathCredentialId: docker-certificates
+jenkinsSlaveCredentialId: jenkins-slave-credential
+dockerSwarmMasterUrl: http://localhost
+containerCap: 100
+connectionTimeout: 5
+readTimeout: 15
+version: 2
+
+templates:
+  - label: java9-jdk-build-slave
+    image: openjdk/openjdk:9-jdk
+    remoteFileSystem: ''
+    idleTerminationMinutes: 2
+    sshLaunchTimeoutMinutes: 1
+    jvmOptions: ''
+    javaPath: ''
+    memoryLimit: 2000
+    memorySwap: 0
+    cpuShares: 100
+    prefixStartSlaveCmd: ''
+    sufficStartSlaveCmd: ''
+    instanceCap: 2
+    dnsString: ''
+    dockerCommand: ''
+    volumeString: ''
+    volumesFromString: ''
+    hostname: ''
+    bindPorts: ''
+    bindAllPorts: false
+    privileged: false
+    tty: false
+    macAddress: ''
+  - label: java8-jdk-build-slave
+    image: openjdk/openjdk:8-jdk
+    remoteFileSystem: ''
+    idleTerminationMinutes: 2
+    sshLaunchTimeoutMinutes: 1
+    jvmOptions: ''
+    javaPath: ''
+    memoryLimit: 2000
+    memorySwap: 0
+    cpuShares: 100
+    prefixStartSlaveCmd: ''
+    sufficStartSlaveCmd: ''
+    instanceCap: 2
+    dnsString: ''
+    dockerCommand: ''
+    volumeString: ''
+    volumesFromString: ''
+    hostname: ''
+    bindPorts: ''
+    bindAllPorts: false
+    privileged: false
+    tty: false
+    macAddress: ''
