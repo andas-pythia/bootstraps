@@ -2,20 +2,20 @@
 
 public class DockerControl {
 
-  static def appName = "pythia-jenkins"
-  static def appVersion = "latest"
+  static String appName = "pythia-jenkins"
+  static String appVersion = "latest"
 
   private static String getName() {
-    return this.appName
+    return appName
   }
 
   private static String getVersion() {
-    return this.appVersion
+    return appVersion
   }
 
   private static String getPid(String dockerContainerName) {
     String dockerPid
-    String shellCommand = "docker ps --filter name=${dockerContainerName} -q"
+    String shellCommand = "docker ps --filter name=${dockerContainerName} -q" as String
     dockerPid = shellCommand.execute().text
     assert dockerPid : "The PID for ${dockerContainerName} could not be found"
     return dockerPid
@@ -24,7 +24,12 @@ public class DockerControl {
   private static String start(String dockerContainerName, String dockerImageVersion) {
     // this method requires that ports be defined or removed; will not work
     clean(dockerContainerName)
-    String shellCommand = "docker run -d -p 8080:8080 -p 50000:50000 --name ${dockerContainerName} --restart unless-stopped ${dockerContainerName}:${dockerImageVersion}"
+    String shellCommand = "docker run -d " +
+            "-p 8080:8080 " +
+            "-p 50000:50000 " +
+            "--name ${dockerContainerName} " +
+            "--restart unless-stopped " +
+            "${dockerContainerName}:${dockerImageVersion}" as String
     println shellCommand
     def process = shellCommand.execute()
     return process.text
@@ -32,7 +37,7 @@ public class DockerControl {
 
   private static String stop(String dockerPid) {
     // https://stackoverflow.com/questions/159148/groovy-executing-shell-commands
-    String shellCommand = "docker stop ${dockerPid}"
+    String shellCommand = "docker stop ${dockerPid}" as String
     println shellCommand
     def process = shellCommand.execute()
     process.waitForOrKill(1000)
@@ -40,7 +45,7 @@ public class DockerControl {
   }
 
   private static String build(String dockerContainerName) {
-    String shellCommand = "docker build --rm -t ${dockerContainerName} ."
+    String shellCommand = "docker build --rm -t ${dockerContainerName} ." as String
     println shellCommand
     def process = shellCommand.execute()
     process.waitForOrKill(120000)
@@ -48,7 +53,7 @@ public class DockerControl {
   }
 
   private static String clean(String dockerContainerName) {
-    String shellCommand = "docker rm ${dockerContainerName}"
+    String shellCommand = "docker rm ${dockerContainerName}" as String
     println shellCommand
     def process = shellCommand.execute()
     return process.text
@@ -72,7 +77,8 @@ public class DockerControl {
   }
 
   public static void main(String[] args) {
-    def cli = new CliBuilder(usage: "groovy ./DockerControl.groovy [build, start, buildrun, stop, restart, status, clean]", posix: false)
+    def cli = new CliBuilder(usage: "groovy ./DockerControl.groovy " +
+            "[build, start, buildrun, stop, restart, status, clean]", posix: false)
     def options = cli.parse(args)
     try {
       assert options.arguments()
